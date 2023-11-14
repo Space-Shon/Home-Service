@@ -1,6 +1,7 @@
 package ru.headsandhands.homeservice.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +33,7 @@ public class Home {
     private String address;
 
     @OneToMany(mappedBy = "home", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private List<Room> rooms = new ArrayList<>();
 
 }

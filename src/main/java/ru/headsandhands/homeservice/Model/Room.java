@@ -1,5 +1,6 @@
 package ru.headsandhands.homeservice.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,5 +28,6 @@ public class Room {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_id", referencedColumnName = "id")
+    @JsonBackReference
     private Home home;
 }

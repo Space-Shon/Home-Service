@@ -15,7 +15,6 @@ import java.util.Optional;
 @AllArgsConstructor
 @Slf4j
 public class HomeServiceImpl implements HomeService {
-
     private final HomeRepositories homeRepositories;
 
     //GET ALL
