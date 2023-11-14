@@ -1,11 +1,12 @@
-package ru.headsandhands.homeservice.Service;
+package ru.headsandhands.homeservice.Service.Impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.headsandhands.homeservice.Home.Home;
+import ru.headsandhands.homeservice.Model.Home;
 import ru.headsandhands.homeservice.Repositories.HomeRepositories;
 import ru.headsandhands.homeservice.Request.HomeRequest;
+import ru.headsandhands.homeservice.Service.HomeService;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class HomeServiceImpl implements HomeService{
+public class HomeServiceImpl implements HomeService {
 
     private final HomeRepositories homeRepositories;
 

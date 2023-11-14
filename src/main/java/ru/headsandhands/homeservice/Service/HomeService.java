@@ -1,6 +1,6 @@
 package ru.headsandhands.homeservice.Service;
 
-import ru.headsandhands.homeservice.Home.Home;
+import ru.headsandhands.homeservice.Model.Home;
 import ru.headsandhands.homeservice.Request.HomeRequest;
 
 import java.util.List;

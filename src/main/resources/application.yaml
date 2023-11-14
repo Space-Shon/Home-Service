@@ -1,21 +1,13 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/homeService_db
-    username: postgres
-    password: spatiumerror88
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: admin
+    password: admin
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-      jdbc:
-        lob:
-          non_contextual_creation: true
-
-
-
-#spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true4
-#spring.sql.init.mode=always
-#spring.sql.init.schema-locations=classpath*:database/initDB.sql
-#spring.sql.init.data-locations=classpath*:database/populateDB.sql
+  liquibase:
+    change-log: classpath:liquibase/changelog.yml

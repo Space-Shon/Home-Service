@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: Dev-1
+      author: space-shon
+      changes:
+        - createTable:
+            tableName: homes
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(255)
+            ifNotExists: true
+            schemaName:  public
+        - createTable:
+            tableName: rooms
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: home_id
+                  type: integer
+                  constraints:
+                    nullable: false
+            ifNotExists: true
+            schemaName:  public
+  - changeSet:
+      id: Dev-2
+      author: space-shon
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: rooms
+            baseColumnNames: home_id
+            referencedTableName: homes
+            referencedColumnNames: id
+            constraintName: homes_rooms_fk
+

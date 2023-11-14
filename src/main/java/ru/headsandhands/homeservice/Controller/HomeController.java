@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.headsandhands.homeservice.Home.Home;
+import ru.headsandhands.homeservice.Model.Home;
 import ru.headsandhands.homeservice.Request.HomeRequest;
 import ru.headsandhands.homeservice.Service.HomeService;
 
