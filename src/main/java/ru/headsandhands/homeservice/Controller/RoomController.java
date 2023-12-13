@@ -10,7 +10,7 @@ import ru.headsandhands.homeservice.Request.RoomRequest;
 import ru.headsandhands.homeservice.Service.RoomService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/homes/api/")
 public class RoomController {
 
     private final RoomService roomService;
@@ -21,7 +21,7 @@ public class RoomController {
 
     //POST /api/rooms
     @PostMapping("/rooms")
-    public ResponseEntity<Room> createHome(@RequestParam Long homeId, @Valid @RequestBody RoomRequest roomRequest){
+    public ResponseEntity<Room> createRoom(@RequestParam Long homeId, @Valid @RequestBody RoomRequest roomRequest){
         Room room = roomService.createRoom(homeId, roomRequest);
         return ResponseEntity.ok(room);
     }

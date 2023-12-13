@@ -11,3 +11,5 @@ spring:
       ddl-auto: update
   liquibase:
     change-log: classpath:liquibase/changelog.yml
+server:
+  port: 8081

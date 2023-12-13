@@ -36,4 +36,7 @@ public class Home {
     @JsonManagedReference
     private List<Room> rooms = new ArrayList<>();
 
+    @Column(name = "ownerId")
+    private String ownerId;
+
 }

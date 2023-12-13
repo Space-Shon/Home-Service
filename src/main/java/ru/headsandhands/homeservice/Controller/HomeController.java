@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import ru.headsandhands.homeservice.Model.Home;
 import ru.headsandhands.homeservice.Request.HomeRequest;
 import ru.headsandhands.homeservice.Service.HomeService;
@@ -17,7 +18,7 @@ import java.util.Optional;
 @RestController
 @Getter
 @Setter
-@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/homes/api/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomeController {
 
     private final HomeService homeService;
@@ -27,28 +28,28 @@ public class HomeController {
 
     //POST /api/homes
     @PostMapping("/homes")
-    public ResponseEntity<Home> createHome(@RequestBody @Valid HomeRequest request){
-        Home home = homeService.createHome(request);
+    public ResponseEntity<Home> createHome(@RequestHeader String token, @RequestBody @Valid HomeRequest request){
+        Home home = homeService.createHome(token, request);
         return ResponseEntity.ok(home);
     }
 
     //PUT /api/homes/{homeId}
     @PutMapping("/homes/{id}")
-    public ResponseEntity<Home> putHome(@RequestBody @Valid Home put){
-        Home home = homeService.putHome(put);
+    public ResponseEntity<Home> putHome(@RequestHeader String token, @RequestBody @Valid Home put){
+        Home home = homeService.putHome(token, put);
         return ResponseEntity.ok(home);
     }
 
     // GET /api/homes
     @GetMapping("/homes")
-    public ResponseEntity<List<Home>> getHome(){
-        return new ResponseEntity<>(homeService.getHome(), HttpStatus.OK);
+    public ResponseEntity<List<Home>> getHome(@RequestHeader String token){
+        return new ResponseEntity<>(homeService.getHome(token), HttpStatus.OK);
     }
 
     //GET /api/homes/{homeId}
     @GetMapping("/homes/{id}")
-    public Optional<Home> getHomeId(@PathVariable Integer id){
-        return homeService.getHomeId(id);
+    public Optional<Home> getHomeId(@RequestHeader String token, @PathVariable Integer id){
+        return homeService.getHomeId(token, id);
     }
 
     //DELETE api/homes/{homeId}

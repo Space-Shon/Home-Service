@@ -21,6 +21,9 @@ databaseChangeLog:
               - column:
                   name: address
                   type: varchar(255)
+              - column:
+                  name: ownerId
+                  type: varchar(255)
             ifNotExists: true
             schemaName:  public
         - createTable:
