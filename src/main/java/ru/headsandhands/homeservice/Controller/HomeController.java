@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import ru.headsandhands.homeservice.Model.Home;
 import ru.headsandhands.homeservice.Request.HomeRequest;
 import ru.headsandhands.homeservice.Service.HomeService;
@@ -35,9 +34,9 @@ public class HomeController {
 
     //PUT /api/homes/{homeId}
     @PutMapping("/homes/{id}")
-    public ResponseEntity<Home> putHome(@RequestHeader String token, @RequestBody @Valid Home put){
-        Home home = homeService.putHome(token, put);
-        return ResponseEntity.ok(home);
+    public ResponseEntity<Home> putHome(@RequestParam Integer id, @RequestHeader String token, @RequestBody @Valid Home put){
+        homeService.putHome(id, token, put);
+        return new ResponseEntity<>(put, HttpStatus.OK);
     }
 
     // GET /api/homes
@@ -54,7 +53,7 @@ public class HomeController {
 
     //DELETE api/homes/{homeId}
     @DeleteMapping("/homes/{id}")
-    public void deleteHome(@PathVariable Integer id){
-        homeService.deleteHome(id);
+    public void deleteHome(@RequestHeader String token, @PathVariable Integer id){
+        homeService.deleteHome(token, id);
     }
 }

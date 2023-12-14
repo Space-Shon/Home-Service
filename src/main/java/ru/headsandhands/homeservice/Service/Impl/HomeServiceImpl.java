@@ -48,16 +48,16 @@ public class HomeServiceImpl implements HomeService {
                 .ownerId(response.getBody())
                 .build());
     }
-    //PUT
+    //PUT ID
     @Override
-    public Home putHome(String token, Home home){
+    public void putHome(Integer id, String token, Home home){
         RestTemplate restTemplate = new RestTemplate();
         String ResourceUrl = "http://localhost:8082/api/token";
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("token", token);
         HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
         ResponseEntity<String> response = restTemplate.exchange(ResourceUrl, HttpMethod.GET, entity, String.class);
-        return homeRepositories.save(home);
+        homeRepositories.saveHome(home, id, response.getBody());
     }
     //GET ID
     @Override
@@ -72,8 +72,14 @@ public class HomeServiceImpl implements HomeService {
     }
     //DELETE ID
     @Override
-    public void deleteHome(Integer id){
-        homeRepositories.deleteById(id);
+    public void deleteHome(String token, Integer id){
+        RestTemplate restTemplate = new RestTemplate();
+        String ResourceUrl = "http://localhost:8082/api/token";
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("token", token);
+        HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<String> response = restTemplate.exchange(ResourceUrl, HttpMethod.GET, entity, String.class);
+        homeRepositories.deleteHomeById(id, response.getBody());
     }
 
 }
