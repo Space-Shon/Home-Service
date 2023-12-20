@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.headsandhands.homeservice.Model.Home;
 import ru.headsandhands.homeservice.Repositories.HomeRepositories;
+import ru.headsandhands.homeservice.Repositories.RoomRepositories;
 import ru.headsandhands.homeservice.Request.HomeRequest;
 import ru.headsandhands.homeservice.Service.HomeService;
 
