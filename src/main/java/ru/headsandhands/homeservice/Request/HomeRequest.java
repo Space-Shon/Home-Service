@@ -4,15 +4,14 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-@Data
-public class HomeRequest {
 
-    @NotBlank
-    @Length(min = 0, max = 30)
-    private String name;
+public record HomeRequest(
+        @NotBlank
+        @Length(min = 0, max = 30)
+        String name,
 
-    @Nullable
-    @Length(min = 0, max = 50)
-    private String address;
-
+        @Nullable
+        @Length(min = 0, max = 50)
+        String address
+) {
 }

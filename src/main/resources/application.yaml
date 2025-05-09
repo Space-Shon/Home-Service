@@ -1,8 +1,15 @@
 spring:
+  kafka:
+    consumer:
+      group-id: home-service
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    listener:
+      ack-mode: manual
   datasource:
-    url: jdbc:postgresql://localhost:5432/home_db
-    username: postgres
-    password: spatiumerror88
+    url: jdbc:postgresql://localhost:5432/postgres
+    username:
+    password:
   jpa:
     properties:
       hibernate:

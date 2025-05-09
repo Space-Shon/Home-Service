@@ -10,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import ru.headsandhands.homeservice.Model.Home;
+import ru.headsandhands.homeservice.Model.HomeEntity;
 import ru.headsandhands.homeservice.Repositories.HomeRepositories;
-import ru.headsandhands.homeservice.Repositories.RoomRepositories;
 import ru.headsandhands.homeservice.Request.HomeRequest;
 import ru.headsandhands.homeservice.Service.Impl.HomeServiceImpl;
 
@@ -49,10 +48,10 @@ class HomeServiceimplTest {
         Mockito.when(restTemplateMock.exchange(apiUrl, HttpMethod.GET, new HttpEntity<>(expectedHeaders), String.class))
                 .thenReturn(mockResponse);
 
-        List<Home> expectedHomes = new ArrayList<>();
+        List<HomeEntity> expectedHomes = new ArrayList<>();
         Mockito.when(homeRepositories.findByAllHouse(responseBody)).thenReturn(expectedHomes);
 
-        List<Home> actualHomes = service.getHome(token);
+        List<HomeEntity> actualHomes = service.getHome(token);
         assertEquals(expectedHomes, actualHomes);
 
     }
@@ -72,19 +71,13 @@ class HomeServiceimplTest {
         Mockito.when(restTemplateMock.exchange(apiUrl, HttpMethod.GET, new HttpEntity<>(expectedHeaders), String.class))
                 .thenReturn(mockResponse);
 
-        HomeRequest homeRequest = new HomeRequest();
-        homeRequest.setName("Home 1");
-        homeRequest.setAddress("Nevsky 1");
+        HomeRequest homeRequest = new HomeRequest("Home1", "Nevsky 1");
 
-        Home expectedHome = new Home();
-        expectedHome.setId(1);
-        expectedHome.setName(homeRequest.getName());
-        expectedHome.setAddress(homeRequest.getAddress());
-        expectedHome.setOwnerId(responseBody);
+        HomeEntity expectedHome = new HomeEntity(homeRequest.name(), homeRequest.address(), List.of(), responseBody);
 
-        Mockito.when(homeRepositories.save(Mockito.any(Home.class))).thenReturn(expectedHome);
+        Mockito.when(homeRepositories.save(Mockito.any(HomeEntity.class))).thenReturn(expectedHome);
 
-        Home actualHome = service.createHome(token, homeRequest);
+        HomeEntity actualHome = service.createHome(token, homeRequest);
         Assertions.assertEquals(expectedHome, actualHome);
 
     }
@@ -103,18 +96,12 @@ class HomeServiceimplTest {
         Mockito.when(restTemplateMock.exchange(apiUrl, HttpMethod.GET, new HttpEntity<>(expectedHeaders), String.class))
                 .thenReturn(mockResponse);
 
-        HomeRequest homeRequest = new HomeRequest();
-        homeRequest.setName("Home 1");
-        homeRequest.setAddress("Nevsky 1");
+        HomeRequest homeRequest = new HomeRequest("Home1", "Nevsky 1");
 
-        Home expectedHome = new Home();
-        expectedHome.setId(id);
-        expectedHome.setName(homeRequest.getName());
-        expectedHome.setAddress(homeRequest.getAddress());
-        expectedHome.setOwnerId(responseBody);
+        HomeEntity expectedHome = new HomeEntity(homeRequest.name(), homeRequest.address(), List.of(), responseBody);
         Mockito.when(homeRepositories.findByHouseId(Mockito.anyInt(), Mockito.anyString())).thenReturn(Optional.of(expectedHome));
 
-        Optional<Home> actualHome = service.getHomeId(token, id);
+        Optional<HomeEntity> actualHome = service.getHomeId(token, id);
         Assertions.assertEquals(expectedHome, actualHome.orElse(null));
     }
 

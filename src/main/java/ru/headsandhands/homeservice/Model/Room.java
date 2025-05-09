@@ -29,5 +29,5 @@ public class Room {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_id", referencedColumnName = "id")
     @JsonBackReference
-    private Home home;
+    private HomeEntity home;
 }

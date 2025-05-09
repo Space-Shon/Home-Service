@@ -3,40 +3,38 @@ package ru.headsandhands.homeservice.Model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @NamedEntityGraph(
         name = "home-entity-graph-with-rooms",
-        attributeNodes = {@NamedAttributeNode("rooms")}
-        )
-@Data
+        attributeNodes = {
+                @NamedAttributeNode("rooms")
+        }
+)
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "homes")
-public class Home {
+public class HomeEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
     @Column(name = "name")
     private String name;
+
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "home", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+    @OneToMany(
+            mappedBy = "home",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            targetEntity = Room.class
+    )
     private List<Room> rooms = new ArrayList<>();
 
     @Column(name = "ownerId")
     private String ownerId;
-
 }

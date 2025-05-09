@@ -3,7 +3,7 @@ package ru.headsandhands.homeservice.Service.Impl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
-import ru.headsandhands.homeservice.Model.Home;
+import ru.headsandhands.homeservice.Model.HomeEntity;
 import ru.headsandhands.homeservice.Model.Room;
 import ru.headsandhands.homeservice.Repositories.RoomRepositories;
 import ru.headsandhands.homeservice.Request.RoomRequest;
@@ -24,7 +24,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Room createRoom(Long homeId, RoomRequest roomRequest) {
-        Home home = entityManager.getReference(Home.class, homeId);
+        HomeEntity home = entityManager.getReference(HomeEntity.class, homeId);
         return roomRepositories.save(Room.builder()
                 .home(home)
                 .name(roomRequest.getName())
